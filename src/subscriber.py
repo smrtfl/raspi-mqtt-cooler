@@ -4,6 +4,7 @@ from enum import Enum
 
 
 MQTT_BROKER_HOST = 'localhost'
+MQTT_TOPIC_NAME = 'raspi/bme280'
 TEMPERATURE_THRESHOLD = 25.0
 GPIOPIUM_SCRIPT_PATH = '~/gpiopium/gpiopium.sh'
 FAN_GPIO_PIN = '17'
@@ -19,7 +20,7 @@ current_fan_state = FanState.OFF
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to broker with result code: {rc}")
-    client.subscribe("raspi/bme280")
+    client.subscribe(MQTT_TOPIC_NAME)
 
 
 def on_message(client, userdata, msg):
