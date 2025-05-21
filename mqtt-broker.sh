@@ -18,37 +18,55 @@ error() {
 }
 
 usage() {
-	printf "\nManage MQTT broker for lightweight PubSub\n"
-	printf "\nUsage\n"
-	printf "  start         Start MQTT broker\n"
-	printf "  stop          Stop MQTT broker\n"
-	printf "\nExample:\n"
-	printf "%s start\n" "$0"
+	cat <<-EOF
 
+		Manage MQTT broker for lightweight PubSub
+
+		Usage:
+		  start         Start MQTT broker
+		  stop          Stop MQTT broker
+
+		Example:
+		  ${0} start
+
+	EOF
 	exit 1
 }
 
 start() {
 	printf "Starting MQTT broker...\n"
 
+	sudo apt update
 	sudo apt install -y mosquitto mosquitto-clients
 
-	sudo systemctl enable mosquitto
-	sudo systemctl start mosquitto
+	if init_config; then
+		success "MQTT broker is configured"
+	else
+		error "Failed to configure MQTT broker"
+	fi
 
-	sudo systemctl status mosquitto
-
-	success "MQTT broker is started"
+	if sudo systemctl enable mosquitto && sudo systemctl start mosquitto; then
+		success "MQTT broker is started"
+	else
+		error "Failed to start MQTT broker"
+	fi
 }
 
 stop() {
 	printf "Stopping MQTT broker...\n"
 
-	sudo systemctl stop mosquitto
+	if sudo systemctl stop mosquitto; then
+		warning "Failed to stop MQTT broker"
+	else
+		success "MQTT broker is stopped"
+	fi
+}
 
-	sudo systemctl status mosquitto
-
-	success "MQTT broker is stopped"
+init_config() {
+	cat >/etc/mosquitto/conf.d/default.conf <<-EOF
+		listener 1883
+		allow_anonymous true
+	EOF
 }
 
 if [ -z "$1" ]; then
