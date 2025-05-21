@@ -5,8 +5,8 @@ from enum import Enum
 
 MQTT_BROKER_HOST = 'localhost'
 MQTT_TOPIC_NAME = 'raspi/bme280'
-TEMPERATURE_THRESHOLD = 25.0
-GPIOPIUM_SCRIPT_PATH = '~/gpiopium/gpiopium.sh'
+TEMPERATURE_THRESHOLD = 27.5
+GPIOPIUM_SCRIPT_PATH = '/home/pnikulin/gpiopium/gpiopium.sh'
 FAN_GPIO_PIN = '17'
 
 
@@ -43,7 +43,7 @@ def set_fan_state(fan_state: FanState):
     global current_fan_state
 
     command = [GPIOPIUM_SCRIPT_PATH, fan_state.value, FAN_GPIO_PIN]
-    subprocess.call(command)
+    subprocess.call([GPIOPIUM_SCRIPT_PATH, fan_state.value, FAN_GPIO_PIN])
 
     current_fan_state = fan_state
 

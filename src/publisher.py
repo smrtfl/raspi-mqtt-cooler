@@ -5,7 +5,7 @@ from BME280 import BME280
 
 MQTT_BROKER_HOST = "172.25.1.15"
 MQTT_BROKER_PORT = 1883
-MQTT_TOPIC_NAME = "raspi/temp"
+MQTT_TOPIC_NAME = "raspi/bme280"
 
 
 if __name__ == "__main__":
