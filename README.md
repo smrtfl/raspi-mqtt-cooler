@@ -17,6 +17,7 @@ For this setup, you would need a device to run a MQQT broker, publisher and subs
 ```sh
 python -m venv venv/
 source venv/bin/activate
+pip install -r requirements.txt
 ```
 
 3. Start the MQTT Publisher
