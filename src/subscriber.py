@@ -6,7 +6,7 @@ from enum import Enum
 MQTT_BROKER_HOST = 'localhost'
 MQTT_TOPIC_NAME = 'raspi/bme280'
 TEMPERATURE_THRESHOLD = 27.5
-GPIOPIUM_SCRIPT_PATH = '/home/pnikulin/gpiopium/gpiopium.sh'
+GPIOPIUM_SCRIPT_PATH = '../gpio-controller.sh'
 FAN_GPIO_PIN = '17'
 
 
