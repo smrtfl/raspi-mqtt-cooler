@@ -43,7 +43,7 @@ def set_fan_state(fan_state: FanState):
     global current_fan_state
 
     command = [GPIOPIUM_SCRIPT_PATH, fan_state.value, FAN_GPIO_PIN]
-    subprocess.call([GPIOPIUM_SCRIPT_PATH, fan_state.value, FAN_GPIO_PIN])
+    subprocess.call(command)
 
     current_fan_state = fan_state
 
